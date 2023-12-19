@@ -107,13 +107,6 @@ ggsave(paste("images\\pheno_corr", trial_interest, Sys.Date(), ".png", sep = "_"
 
 # Check design experimental
 
-
-# Rep_number == 3 was removed from 2021103MDAYT_quan, 
-# due to there were several missing values
-# my_dat_1 <- trial_rm_sd %>% filter(trial_name 
-#                                    %in% c("2021103MDAYT_quan"), 
-#                                    !rep_number == 3)
-
 my_dat <- trial_rm_sd %>% 
   add_column(block = NA) %>% mutate(block = as.factor(block)) 
 
@@ -184,9 +177,13 @@ for (i in 1:length(trials)) {
   master_data[[paste0("BLUP_BLUE_", trials[i])]] <- blue_blup
 }
 
+# Save the spatial correction plots
+pdf(paste(folder, "01_", trial_interest, "_spatial_correction_", Sys.Date(), 
+          ".pdf", sep = ""), width = 6, height = 6)
 plot(obj, type = "spatial") 
+dev.off()
 
-## Single heritability
+# Single heritability
 single_h2 <- obj$resum_fitted_model[ ,1:3] %>% 
   group_by(trial) %>%
   spread(trait, value = heritability) #%>% print(width = Inf) 
