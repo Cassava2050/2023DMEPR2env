@@ -136,7 +136,7 @@ plants_plot %>% select(-n) %>%
   write.table("clipboard", sep="\t", col.names = T, row.names = F)
 
 
-# I dont think I am able to calculate yield_V2
+# Double check yield calculation
 plants_to_harvest <- plants_harvested %>% 
   ggplot(aes(x = factor(obs_harvest_number), 
              y = n, fill = factor(obs_harvest_number))) +

@@ -117,28 +117,11 @@ ggsave(paste("images\\pheno_corr", trial_interest, Sys.Date(), ".png", sep = "_"
 my_dat <- trial_rm_sd %>% 
   add_column(block = NA) %>% mutate(block = as.factor(block)) 
 
-  # filter(!trial_name == "2021103MDAYT_quan") %>% 
-  # bind_rows(my_dat_1)
-
-# run just for GxE analisys
-my_dat_1 <- my_dat %>% filter(trial_name %in% c("202088MDAYT_dona", 
-                                                "202089MDAYT_tani",
-                                                "2021100MDAYT_phuy",
-                                                #"2021101MDAYT_sola",
-                                                "2021102MDAYT_tani",
-                                                "2021104MDAYT_dona",
-                                                "2021105MDAYT_dakl",
-                                                "2021103MDAYT_quan"
-                                                #"2022118DMAYT_phuy",
-                                                #"2021106MDAYT_tani"
-))
-
-
 # number of trials
 length(unique(my_dat$trial_name)) 
 
 results <- check_design_met(
-  data = my_dat, #my_dat_1
+  data = my_dat,
   genotype = "accession_name",
   trial = "trial_name",
   traits = trait_ideal,
@@ -610,6 +593,6 @@ master_data[["BLUEs_BLUPs_MET"]] = BLUEs_BLUPs
 
 ## Save the master data results
 folder_output <- here::here("output//")
-meta_file_name <- paste0(folder_output, paste("2022", trial_interest, "master_results", Sys.Date(), ".xlsx", sep = "_"))
+meta_file_name <- paste0(folder_output, paste(year_interest, trial_interest, "master_results", Sys.Date(), ".xlsx", sep = "_"))
 write.xlsx(master_data, file = meta_file_name)
 
